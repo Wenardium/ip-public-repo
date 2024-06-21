@@ -10,10 +10,14 @@ def getAllImages(input=None):
     # ¡OJO! el parámetro 'input' indica si se debe buscar por un valor introducido en el buscador.
     json_collection = []
 
+    for items in transport.getAllImages(input):
+        json_collection.append(items)
+
     images = []
 
     # recorre el listado de objetos JSON, lo transforma en una NASACard y lo agrega en el listado de images. Ayuda: ver mapper.py.
-
+    for items in json_collection:
+        images.append(mapper.fromRequestIntoNASACard(items))
     return images
 
 
