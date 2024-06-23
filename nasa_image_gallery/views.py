@@ -14,8 +14,9 @@ def index_page(request):
 def getAllImagesAndFavouriteList(request):
     images = services_nasa_image_gallery.getAllImages()
     #favourite_list = services_nasa_image_gallery.getAllFavouritesByUser()
+    favourite_list = services_nasa_image_gallery.getAllFavouritesByUser(request) if request.user.is_authenticated else []
 
-    return images
+    return images,favourite_list
 
 # función principal de la galería.
 def home(request):
@@ -35,8 +36,11 @@ def search(request):
     search_msg = request.POST.get('query', '')
 
     # si el usuario no ingresó texto alguno, debe refrescar la página; caso contrario, debe filtrar aquellas imágenes que posean el texto de búsqueda.
-    pass
-
+    if not search_msg:
+        return redirect('home')
+    else:
+        filtrar_images = services_nasa_image_gallery.getAllImages(search_msg)
+        return render(request, 'home.html', {'images': filtrar_images, 'favourite_list': favourite_list})
 
 # las siguientes funciones se utilizan para implementar la sección de favoritos: traer los favoritos de un usuario, guardarlos, eliminarlos y desloguearse de la app.
 @login_required
