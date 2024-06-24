@@ -14,7 +14,7 @@ def index_page(request):
 def getAllImagesAndFavouriteList(request):
     images = services_nasa_image_gallery.getAllImages()
     #favourite_list = services_nasa_image_gallery.getAllFavouritesByUser()
-    favourite_list = services_nasa_image_gallery.getAllFavouritesByUser(request) if request.user.is_authenticated else []
+    favourite_list = services_nasa_image_gallery.getAllFavouritesByUser(request)
 
     return images,favourite_list
 
