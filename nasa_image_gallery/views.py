@@ -40,7 +40,7 @@ def search(request):
         return redirect('home')
     else:
         filtrar_images = services_nasa_image_gallery.getAllImages(search_msg)
-        return render(request, 'home.html', {'images': filtrar_images, 'favourite_list': favourite_list})
+        return render(request, 'home.html', {'images': filtrar_images})
 
 # las siguientes funciones se utilizan para implementar la sección de favoritos: traer los favoritos de un usuario, guardarlos, eliminarlos y desloguearse de la app.
 @login_required
